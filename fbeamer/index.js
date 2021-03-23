@@ -1,7 +1,7 @@
 'use strict';
 const crypto = require('crypto');
 const axios = require('axios');
-const apiVersion = 'v9.0';
+const apiVersion = 'v10.0';
 
 class FBeamer {
     constructor({ ACCESS_TOKEN, VERIFY_TOKEN, APP_SECRET }) {

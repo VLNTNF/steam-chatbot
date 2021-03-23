@@ -4,7 +4,7 @@ const bodyparser = require('body-parser');
 const express = require('express');
 const config = require('./config');
 const FBeamer = require('./fbeamer');
-const TMDB = require('./tmdb');
+const STEAM = require('./steam');
 
 const server = express();
 const PORT = process.env.PORT || 3000;
@@ -19,18 +19,19 @@ server.post('/', (request, response, data) => {
     const userData = FB.messageHandler(data);
     console.log(userData.content.nlp.intents);
     console.log(userData.content.nlp.entities);
-    TMDB(userData.content.nlp, userData.sender).then(value => {
-      if(value.img != null){
-        console.log(value.img);
-        if (Array.isArray(value.img)){
-          value.img.forEach(img => {
-            FB.img(userData.sender, img);
-          });
-        } else {
-          FB.img(userData.sender, value.img);
+    STEAM(userData.content.nlp, userData.sender).then(value => {
+      try {
+        if(value.img != null){
+          if (Array.isArray(value.img)){
+            value.img.forEach(img => {
+              FB.img(userData.sender, img);
+            });
+          } else {
+            FB.img(userData.sender, value.img);
+          }
         }
-      }
-      FB.txt(userData.sender, value.txt);
+        FB.txt(userData.sender, value.txt);
+      } catch(error) {}
     });
   });
 });
