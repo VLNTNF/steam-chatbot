@@ -490,7 +490,7 @@ module.exports = (nlpData, senderID) => {
                         }
                     } else {
                         resolve({
-                            txt: ["I don't know your steam account 😅", 'Add it by answering: My steam is _(your link/ID64/username)_'],
+                            txt: ["I don't know your steam account 😅", 'Add it by answering: My steam is (your link/ID64/username)'],
                             img: null
                         });
                     }
@@ -526,8 +526,8 @@ module.exports = (nlpData, senderID) => {
             try {
                 let response = await facebook(senderID);
                 if (response) {
-                    let text = [`Hello *${response.first_name}* 👋🏻`];
-                    text.push('Ask me what you want:\ntell me...\n- games to play\n- news about _(a game)_\n- more about _(another game)_')
+                    let text = [`Hello ${response.first_name} 👋🏻`];
+                    text.push('Ask me what you want:\ntell me...\n- games to play\n- news about (a game)\n- more about (another game)')
                     resolve({
                         txt: text,
                         img: null
@@ -537,12 +537,12 @@ module.exports = (nlpData, senderID) => {
         }
         else {
             resolve({
-                txt: "I'm not sure I understand you!",
+                txt: "I'm not sure I understand you! 😅",
                 img: null
             });
         }
         resolve({
-            txt: "I'm struggling with the API!\nTry again later...",
+            txt: "I'm struggling with the API!\nTry again later... 😪",
             img: null
         });
     });
